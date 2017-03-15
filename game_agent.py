@@ -315,9 +315,9 @@ class CustomPlayer:
                 if vnew != v:
                     move = m
                 v = vnew
+                alpha = max(v, alpha)
                 if v >= beta:
                     return v, m
-                alpha = max(v, alpha)
             if move is not None:
                 return v, move
             else:
@@ -339,7 +339,7 @@ class CustomPlayer:
         v = float("inf")
         for m in game.get_legal_moves():
             v = min(self.alpha_beta_max(game.forecast_move(m), depth, alpha, beta, depth_now=depth_now+1), v)
+            beta = min(beta, v)
             if v <= alpha:
                 return v
-            beta = min(beta, v)
         return v
